@@ -31,3 +31,8 @@ This project demonstrates how to integrate AI with a backend (FastAPI) and creat
 ## 📌 Notes
 
 This is a personal project built to explore AI-driven development and improve backend/frontend integration skills.
+
+## 📸 Screenshot
+
+![AI Code Assistant Screenshot](https://github.com/user-attachments/assets/baaa457a-f3da-4062-b2df-75e7eb5cb351)
+
