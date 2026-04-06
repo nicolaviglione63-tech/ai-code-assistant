@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Code Reviewer AI</title>
+
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #0f172a;
+        color: #e2e8f0;
+        padding: 20px;
+    }
+
+    textarea {
+        width: 100%;
+        background: #1e293b;
+        color: #fff;
+        border: 1px solid #334155;
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    button {
+        background: #38bdf8;
+        color: #000;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    #result {
+        margin-top: 20px;
+        background: #1e293b;
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+    #codeBlock {
+        margin-top: 20px;
+        background: #020617;
+        padding: 10px;
+        border-radius: 8px;
+        font-family: monospace;
+    }
+
+    #codeBlock div {
+        padding: 2px 5px;
+    }
+    </style>
+
+</head>
+
+<body>
+
+<h2>💻 Code Reviewer AI</h2>
+
+<textarea id="code" rows="10" placeholder="Incolla qui il codice..."></textarea>
+<br><br>
+
+<button onclick="sendCode()">Analizza</button>
+
+<pre id="codeBlock"></pre>
+
+<div id="result"></div>
+
+<script>
+
+async function sendCode() {
+    const code = document.getElementById("code").value;
+    const el = document.getElementById("result");
+
+    document.getElementById("codeBlock").innerHTML = renderCode(code);
+
+    el.innerHTML = "<p>⏳ Analisi in corso...</p>";
+
+    const res = await fetch("http://127.0.0.1:8000/review", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ code: code })
+    });
+
+    const data = await res.json();
+
+    render(data);
+}
+
+function render(data) {
+    const el = document.getElementById("result");
+
+    el.innerHTML = `
+        <h3>Score: ${data.score ?? "N/A"}</h3>
+
+        <h3>Summary</h3>
+        <p>${data.summary ?? "N/A"}</p>
+
+        <h3>🐛 Bugs</h3>
+        ${list(data.bugs)}
+
+        <h3>⚡ Performance</h3>
+        ${list(data.performance)}
+
+        <h3>🔐 Security</h3>
+        ${list(data.security)}
+
+        <h3>✨ Improvements</h3>
+        ${list(data.improvements)}
+
+        <h3>📍 Line Issues</h3>
+        ${renderLineIssues(data.line_issues)}
+    `;
+}
+
+function list(items) {
+    if (!items || items.length === 0) {
+        return "<p>OK 👍</p>";
+    }
+    return "<ul>" + items.map(i => `<li>${i}</li>`).join("") + "</ul>";
+}
+
+function renderLineIssues(issues) {
+    if (!issues || issues.length === 0) return "<p>OK 👍</p>";
+
+    return "<ul>" + issues.map(i => {
+        const line = i.line + 1;
+
+        return `<li style="cursor:pointer;" onclick="highlightLine(${line})">
+            <strong>Line ${i.line}:</strong> ${i.issue}
+        </li>`;
+    }).join("") + "</ul>";
+}
+
+function renderCode(code) {
+    const lines = code.split("\n");
+
+    return lines.map((line, i) => 
+        `<div id="line-${i+1}">
+            <span style="color:#64748b;">${i+1}</span> ${line}
+        </div>`
+    ).join("");
+}
+
+window.highlightLine = function(line) {
+    const el = document.getElementById("line-" + line);
+
+    if (!el) return;
+
+    const lines = document.querySelectorAll("#codeBlock div");
+    for (let i = 0; i < lines.length; i++) {
+        lines[i].style.background = "";
+    }
+
+    el.style.background = "#ef4444";
+
+    setTimeout(function() {
+        el.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+    }, 50);
+};
+
+</script>
+
+</body>
+</html>
