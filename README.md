@@ -36,3 +36,22 @@ This is a personal project built to explore AI-driven development and improve ba
 
 ![AI Code Assistant Screenshot](https://github.com/user-attachments/assets/baaa457a-f3da-4062-b2df-75e7eb5cb351)
 
+## 🐳 Run with Docker
+
+Build the Docker image:
+
+```bash
+docker build -t ai-code-assistant .
+```
+
+Run the container:
+
+```bash
+docker run -p 8000:8000 ai-code-assistant
+```
+
+Open in your browser:
+
+http://localhost:8000/docs
+
+
