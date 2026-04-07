@@ -1,57 +1,74 @@
-# AI Code Assistant
+# 🚀 AI Code Assistant
 
-AI-powered code review tool built with FastAPI and JavaScript.
-
-## 🚀 Features
-
-* Analyze code using AI
-* Detect bugs and improvements
-* Interactive UI with line highlighting
-* Smooth navigation to issues
-
-## 🧠 Tech Stack
-
-* FastAPI
-* Python
-* JavaScript
-* OpenAI API
-
-## ⚙️ How to use
-
-1. Paste your code into the textarea
-2. Click "Analyze"
-3. Click on issues to navigate to the exact line
-
-## 💡 Project Goal
-
-This project demonstrates how to integrate AI with a backend (FastAPI) and create an interactive frontend experience.
+An AI-powered code review tool that analyzes source code, detects issues, and provides actionable feedback.
 
 ---
 
-## 📌 Notes
+## ✨ Features
 
-This is a personal project built to explore AI-driven development and improve backend/frontend integration skills.
+* AI-powered code analysis
+* Bug detection and suggestions
+* Interactive UI with line highlighting
+* FastAPI backend
+* Docker support for easy deployment
 
-## 📸 Screenshot
+---
 
-![AI Code Assistant Screenshot](https://github.com/user-attachments/assets/baaa457a-f3da-4062-b2df-75e7eb5cb351)
+## 🛠️ Tech Stack
+
+* Python
+* FastAPI
+* JavaScript
+* OpenAI API
+* Docker
+
+---
+
+## ⚙️ API Documentation
+
+You can explore and test the API using the built-in Swagger UI:
+
+http://localhost:8000/docs
+
+---
 
 ## 🐳 Run with Docker
 
 Build the Docker image:
 
-```bash
+```bash id="0stq7p"
 docker build -t ai-code-assistant .
 ```
 
 Run the container:
 
-```bash
+```bash id="qpqsd2"
 docker run -p 8000:8000 ai-code-assistant
 ```
 
-Open in your browser:
+Then open in your browser:
 
 http://localhost:8000/docs
 
+---
+
+## 📌 Notes
+
+This project demonstrates the integration of AI into code analysis workflows, combining backend development, API design, and containerization.
+
+---
+
+## 🖥️ UI Preview
+
+![UI Screenshot](./screenshot.png)
+
+---
+
+## 📫 Contact
+
+Feel free to reach out for collaboration or opportunities.
+
+## 📸 Screenshot
+
+![AI Code Assistant Screenshot](https://github.com/user-attachments/assets/baaa457a-f3da-4062-b2df-75e7eb5cb351)
 
